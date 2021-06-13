@@ -11,11 +11,8 @@ places_ns = Namespace("Places", path="/places", description="Get top places")
 @places_ns.route("")
 class Place(Resource):
     def get(self):
-        resp = get_topk_places(5)
+        resp = get_topk_places(5, 'кафе')
         return {'places': resp}
 
     # def post(self):
     #     org_type = request.form['type']
-
-        
-    #     return {'a': 1}
