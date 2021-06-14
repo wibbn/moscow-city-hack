@@ -1,3 +1,4 @@
+from numpy import require
 from app.utils.get_heatmap import get_heatmap
 from flask_restx import Resource, Namespace, reqparse
 from flask_cors import cross_origin
@@ -15,6 +16,14 @@ places_parser = reqparse.RequestParser()
 places_parser.add_argument("type", type=str, location="json", store_missing=False,
                          help="Type of business")
 places_parser.add_argument("address", type=str, location="json", store_missing=False,
+                         help="Address of area")
+places_parser.add_argument("from_price", type=float, location="json", required=False,
+                         help="Address of area")
+places_parser.add_argument("to_price", type=float, location="json", required=False,
+                         help="Address of area")
+places_parser.add_argument("from_area", type=float, location="json", store_missing=False,
+                         help="Address of area")
+places_parser.add_argument("to_area", type=float, location="json", store_missing=False,
                          help="Address of area")
 places_parser.add_argument("topk", type=int, location="json", store_missing=False,
                          help="Number of results")
@@ -36,7 +45,19 @@ class Place(Resource):
         org_type = args['type']
         place = args['address']
         k = args['topk']
-        resp = get_topk_places(k, org_type, place)
+
+        price, area = None, None
+
+        try:
+            price = args['from_price'], args['to_price']
+        except:
+            pass
+        try:
+            area = args['from_area'], args['to_area']
+        except:
+            pass
+
+        resp = get_topk_places(k, org_type, place, price, area)
 
         return {'places': resp}
 

@@ -34,7 +34,7 @@ fit = {
     }
 }
 
-def get_topk_places(k, type, place=None):
+def get_topk_places(k, type, place=None, price=None, area=None):
     data = pd.read_csv(basedir + '/data/df.csv', index_col=0)
     bizs = pd.read_csv(basedir + '/data/bizs.csv', index_col=0)
     locs = pd.read_csv(basedir + '/data/locs.csv', index_col=0)
@@ -49,6 +49,11 @@ def get_topk_places(k, type, place=None):
         lands = get_place_arround(lands, coords, 0.03)
 
     locs = locs[locs['type_custom'].isin(fit['fit'][type])]
+
+    if price:
+        locs = locs[(locs['cost'] >= price[0]) & (locs['cost'] <= price[1])]
+    if area:
+        locs = locs[(locs['area'] >= price[0]) & (locs['area'] <= area[1])]
 
     def func(x):    
         s = pd.Series()
@@ -84,6 +89,10 @@ def get_topk_places(k, type, place=None):
         return s
 
     df = locs.apply(func, axis=1)
+
+    if df.empty:
+        return []
+
     dfq = pd.concat([locs, df], axis=1)
     dfq['q'] = df['counts'] + df['usertime'] * 0.8 + df['biz_count'] * 2 - df['comp_count'] * 3 - df['metro_dist'] * 80
 
