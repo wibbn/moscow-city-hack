@@ -10,6 +10,7 @@ setuptools.setup(
         'flask==1.1.4',
         'flask_script',
         'flask-restx',
-        'python-dotenv'
+        'flask-cors',
+        'python-dotenv',
     ]
 )

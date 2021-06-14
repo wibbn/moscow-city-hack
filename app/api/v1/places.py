@@ -1,6 +1,7 @@
 from app.utils.get_heatmap import get_heatmap
-from flask import request, jsonify
 from flask_restx import Resource, Namespace, reqparse
+from flask_cors import cross_origin
+
 from app.utils.get_places import get_topk_places
 from app.utils.get_heatmap import get_heatmap
 
@@ -29,6 +30,7 @@ heatmap_parser.add_argument("radius", type=float, location="json", store_missing
 @places_ns.route("/places")
 class Place(Resource):
     @places_ns.expect(places_parser)
+    @cross_origin()
     def post(self):
         args = places_parser.parse_args()
         org_type = args['type']
@@ -41,6 +43,7 @@ class Place(Resource):
 @places_ns.route("/heatmap")
 class Heatmap(Resource):
     @places_ns.expect(heatmap_parser)
+    @cross_origin()
     def post(self):
         args = heatmap_parser.parse_args()
         
