@@ -2,6 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
+    YNDX_GEOCODE_TOKEN = os.environ.get('YNDX_GEOCODE_TOKEN')
 
     APP_NAME = os.environ.get("APP_NAME") or "bestplaces"
     APP_HOSTNAME = os.environ.get("APP_HOSTNAME") or "localhost:5000"
