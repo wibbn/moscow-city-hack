@@ -5,16 +5,25 @@ from app.utils.utils import geocode, get_place_arround, distance
 
 fit = {
     'fit': {
-        'кафе': ['manufacture'],
-        'клиника': ['common', 'manufacture'],
+        'cafe': ['manufacture', 'services'],
+        'medicine': ['common', 'services'],
+        'beauty': ['common', 'services', 'retail'],
+        'retail': ['retail', 'common'],
+        'services': ['services', 'common']
     },
     'good': {
-        'кафе': ['sport', 'malls', 'beauty'],
-        'клиника': ['services']
+        'cafe': ['sport', 'malls', 'beauty'],
+        'medicine': ['services', 'sport'],
+        'beauty': ['sport', 'entertainment', 'business'],
+        'retail': ['sport', 'beauty', 'business'],
+        'services': ['business', 'malls']
     },
     'bad': {
-        'кафе': ['cafe'],
-        'клиника': ['medicine']
+        'cafe': ['cafe'],
+        'medicine': ['medicine'],
+        'beauty': ['beauty'],
+        'retail': ['malls'],
+        'services': ['services']
     }
 }
 
