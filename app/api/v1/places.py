@@ -21,9 +21,9 @@ places_parser.add_argument("from_price", type=float, location="json", required=F
                          help="Address of area")
 places_parser.add_argument("to_price", type=float, location="json", required=False,
                          help="Address of area")
-places_parser.add_argument("from_area", type=float, location="json", store_missing=False,
+places_parser.add_argument("from_area", type=float, location="json", required=False,
                          help="Address of area")
-places_parser.add_argument("to_area", type=float, location="json", store_missing=False,
+places_parser.add_argument("to_area", type=float, location="json", required=False,
                          help="Address of area")
 places_parser.add_argument("topk", type=int, location="json", store_missing=False,
                          help="Number of results")
@@ -46,16 +46,13 @@ class Place(Resource):
         place = args['address']
         k = args['topk']
 
-        price, area = None, None
+        price = None
+        area = None
 
-        try:
+        if 'from_price' in args.keys() and 'to_price' in args.keys():
             price = args['from_price'], args['to_price']
-        except:
-            pass
-        try:
+        if 'from_area' in args.keys() and 'to_area' in args.keys():
             area = args['from_area'], args['to_area']
-        except:
-            pass
 
         resp = get_topk_places(k, org_type, place, price, area)
 

@@ -45,14 +45,14 @@ def get_topk_places(k, type, place=None, price=None, area=None):
 
         data = get_place_arround(data, coords, 0.02)
         bizs = get_place_arround(bizs, coords, 0.02)
-        locs = get_place_arround(locs, coords, 0.01)
+        locs = get_place_arround(locs, coords, 0.03)
         lands = get_place_arround(lands, coords, 0.03)
 
     locs = locs[locs['type_custom'].isin(fit['fit'][type])]
 
-    if price:
+    if price[0]:
         locs = locs[(locs['cost'] >= price[0]) & (locs['cost'] <= price[1])]
-    if area:
+    if area[0]:
         locs = locs[(locs['area'] >= price[0]) & (locs['area'] <= area[1])]
 
     def func(x):    
