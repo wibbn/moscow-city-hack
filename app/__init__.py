@@ -17,4 +17,3 @@ def create_app(config_name):
     return app
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-print(basedir)
