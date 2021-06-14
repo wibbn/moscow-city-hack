@@ -7,8 +7,9 @@ setuptools.setup(
         'pandas',
         'numpy',
         'scipy',
-        'flask',
+        'flask==1.1.4',
         'flask_script',
         'flask-restx',
+        'python-dotenv'
     ]
 )
