@@ -85,7 +85,7 @@ def get_topk_places(k, type, place=None):
 
     df = locs.apply(func, axis=1)
     dfq = pd.concat([locs, df], axis=1)
-    dfq['q'] = df['counts'] + df['usertime'] * 0.8 + df['biz_count'] * 2 - df['comp_count'] * 3 - df['metro_dist'] * 100
+    dfq['q'] = df['counts'] + df['usertime'] * 0.8 + df['biz_count'] * 2 - df['comp_count'] * 3 - df['metro_dist'] * 80
 
     values = list(dfq.sort_values('q', ascending=False).dropna().drop('q', axis=1).head(k).T.to_dict().values())
 
